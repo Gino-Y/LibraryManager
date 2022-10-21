@@ -16,7 +16,7 @@ DB_URI = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}?charset=utf8"
                                                                                         host=HOST,
                                                                                         port=PORT,
                                                                                         db=DATABASE)
-engine = create_engine(DB_URI, encoding='utf8', echo=True)
+engine = create_engine(DB_URI, echo=True)
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
