@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>lift</div>
+  <div>publishers</div>
 </template>
 
 <style scoped>

@@ -1,31 +1,24 @@
 import {defineStore} from "pinia";
-import {getList} from '../api'
+import {getWriters, getList} from '../api'
 
 export const listStore = defineStore('list',{
     state(){
         return {
-            items:[
-                {product_id: 1, product_name: 'Abc', product_uprice: 123},
-                {product_id: 2, product_name: 'Def', product_uprice: 456},
-                {product_id: 3, product_name: 'Ghi', product_uprice: 789},
-            ]
+            writersList:[]
         }
     },
     actions:{ // function
-        async getData(){ // 在pinia中发送请求
-            let res = await getList();
-            this.items = res.data.data; //请求到的数据保存在state.items
+        async getWritersData(){ // 在pinia中发送请求
+            let res = await getWriters();
+            let {code, message, data} = res.data
+            if(code == 200){
+                this.writersList = res.data.data; //请求到的数据保存在state.writersList
+                this.$message(message)
+            }
         }
     },
     persist:{ // 持久化
         enabled: true, // 开启
-        // strategies:[
-        //     {
-        //         key:'main',
-        //         storage: sessionStorage, // 存储的方式
-        //         paths: ['product_name'] // 选择持久化的字段
-        //     }
-        // ]
     }
 
 })

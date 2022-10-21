@@ -7,3 +7,9 @@ export function getList(){
     })
 }
 
+export function getWriters(){
+    return request({
+        url: 'writers',
+        method: 'get'
+    })
+}
