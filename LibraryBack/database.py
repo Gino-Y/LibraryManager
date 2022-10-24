@@ -1,7 +1,8 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker
-
+#教程上都是导入这个Base，莫名其妙他们就可以生成，也有可能他们model也写在这个文件下面
+#实际问题就是
 Base = declarative_base()
 
 # 初始化数据库连接:
