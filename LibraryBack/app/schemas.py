@@ -42,7 +42,7 @@ class Publisher(PublisherBase):
 class BookBase(BaseModel):
     title: str
     price: float
-    publish_date: Optional[datetime] = None
+    publisher_data: Optional[datetime] = None
 
 
 # 书籍请求体校验模型
@@ -58,7 +58,11 @@ class Book(BookBase):
         orm_mode = True
 
 
-
+# 自定義作者創建成功響應躰的校驗模型
+class GeneralDefine(BaseModel):
+    message: str
+    code: int
+    obj: Writer
 
 
 

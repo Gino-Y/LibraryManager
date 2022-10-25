@@ -2,6 +2,8 @@ from sqlalchemy.orm import Session
 from typing import List
 import schemas
 from app.models.models import Writer, Book, Publisher, Match
+
+
 # from app.models import models
 # user_info = db.query(models.Writer).filter(models.Writer.username == username).first()
 
@@ -41,17 +43,19 @@ def create_publisher(db: Session, publisher: schemas.PublisherCreate):
 
 # 获取所有出版社信息
 def get_all_publisher(db: Session):
-    return db.query(Publisher).all()
+    res=db.query(Publisher).all()
+    return res
 
 
 def get_book_by_title(db: Session, title: str):
-    return db.query(Book).filter(Book.title == title).first()
+    res=db.query(Book).filter(Book.title == title).first()
+    return res
 
 
 # 根据作者ID、出版社ID列表、书籍信息，创建书籍
 def create_book_by_writer(db: Session, book: schemas.BookBase, writer_id: int, publisher_id_list: List[int]):
     db_book = Book(**book.dict(), writer_id=writer_id)
-    publisher_obj_list = [db.query(Publisher).filter(Publisher.id == i) for i in publisher_id_list]
+    publisher_obj_list = [db.query(Publisher).filter(Publisher.id == i).all() for i in publisher_id_list]
     db_book.book_to_publisher = publisher_obj_list
     db.add(db_book)
     db.commit()
@@ -59,3 +63,18 @@ def create_book_by_writer(db: Session, book: schemas.BookBase, writer_id: int, p
     return db_book
 
 
+# 获取所有的书籍信息
+def get_all_books(db: Session):
+    books = db.query(Book).all()
+    result = list()
+    for obj in books:
+        parms = {
+            'id': obj.id,
+            'title': obj.title,
+            'price': obj.price,
+            'publisher_data': obj.publisher_data,
+            'writer': obj.book_to_writer,
+            'publishers': obj.book_to_publisher
+        }
+        result.append(parms)
+    return result
