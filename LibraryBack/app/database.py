@@ -1,8 +1,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker
-#教程上都是导入这个Base，莫名其妙他们就可以生成，也有可能他们model也写在这个文件下面
-#实际问题就是
+
 Base = declarative_base()
 
 # 初始化数据库连接:
@@ -19,7 +18,4 @@ DB_URI = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}?charset=utf8"
                                                                                         db=DATABASE)
 engine = create_engine(DB_URI, echo=True)
 # 创建DBSession类型:
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
-Base.metadata.create_all(engine)
-session.commit()
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)

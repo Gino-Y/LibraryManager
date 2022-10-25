@@ -1,7 +1,9 @@
-from database import Base
+
 from sqlalchemy import Column, String, Integer, Float, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 import datetime
+
+from app.database import Base
 
 
 class Writer(Base):
@@ -9,7 +11,7 @@ class Writer(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(32), index=True)
     email = Column(String(32))
-    writer_to_book = relationship('book', backref='book_to_writer')
+    writer_to_book = relationship('Book', backref='book_to_writer')
 
 
 class Book(Base):
@@ -25,7 +27,7 @@ class Publish(Base):
     __tablename__ = 'publish'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(32))
-    publish_to_book = relationship('book', backref='book_to_publish', secondary='match')
+    publish_to_book = relationship('Book', backref='book_to_publish', secondary='match')
 
 
 class Match(Base):
