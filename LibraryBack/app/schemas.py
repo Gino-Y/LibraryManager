@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from pydantic import BaseModel, EmailStr
+from typing import Optional
 
 
 class WriterBase(BaseModel):
@@ -15,5 +18,48 @@ class Writer(WriterBase):
     id: int
     email: EmailStr
 
-    class config:
+    class Config:
         orm_mode = True
+
+
+class PublisherBase(BaseModel):
+    name: str
+
+
+# 出版社请求体校验
+class PublisherCreate(PublisherBase):
+    pass
+
+
+# 出版社响应体校验
+class Publisher(PublisherBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class BookBase(BaseModel):
+    title: str
+    price: float
+    publish_date: Optional[datetime] = None
+
+
+# 书籍请求体校验模型
+class BookCreate(BookBase):
+    pass
+
+
+# 书籍响应体校验模型
+class Book(BookBase):
+    writer_id: int
+
+    class Config:
+        orm_mode = True
+
+
+
+
+
+
+

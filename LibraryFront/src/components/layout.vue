@@ -17,7 +17,7 @@ import {
   NSwitch,
   darkTheme
 } from 'naive-ui'
-import Anchor from "./anchor.vue";
+import Anchor from "./menu.vue";
 
 
 </script>

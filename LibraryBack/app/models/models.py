@@ -19,19 +19,19 @@ class Book(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(32))
     price = Column(Float)
-    publish_data = Column(DateTime, default=datetime.datetime.now)
-    author_id = Column(Integer, ForeignKey('writer.id'))
+    publisher_data = Column(DateTime, default=datetime.datetime.now)
+    writer_id = Column(Integer, ForeignKey('writer.id'))
 
 
-class Publish(Base):
-    __tablename__ = 'publish'
+class Publisher(Base):
+    __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(32))
-    publish_to_book = relationship('Book', backref='book_to_publish', secondary='match')
+    publisher_to_book = relationship('Book', backref='book_to_publisher', secondary='match')
 
 
 class Match(Base):
     __tablename__ = 'match'
     id = Column(Integer, primary_key=True, index=True)
-    publish_id = Column(Integer, ForeignKey('publish.id'))
+    publisher_id = Column(Integer, ForeignKey('publisher.id'))
     book_id = Column(Integer, ForeignKey('book.id'))
