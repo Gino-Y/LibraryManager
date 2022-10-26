@@ -55,7 +55,7 @@ def get_book_by_title(db: Session, title: str):
 # 根据作者ID、出版社ID列表、书籍信息，创建书籍
 def create_book_by_writer(db: Session, book: schemas.BookBase, writer_id: int, publisher_id_list: List[int]):
     db_book = Book(**book.dict(), writer_id=writer_id)
-    publisher_obj_list = [db.query(Publisher).filter(Publisher.id == i).first() for i in publisher_id_list]
+    publisher_obj_list = [db.query(Publisher).filter(Publisher.id == i).all() for i in publisher_id_list]
     db_book.book_to_publisher = publisher_obj_list
     db.add(db_book)
     db.commit()

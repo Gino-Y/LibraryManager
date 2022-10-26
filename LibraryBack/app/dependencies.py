@@ -9,7 +9,6 @@ def get_db():
         db.close()
 
 
-
 # session = SessionLocal()
 # Base.metadata.create_all(engine)
 # session.commit()
