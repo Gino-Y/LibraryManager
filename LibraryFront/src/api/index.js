@@ -1,11 +1,4 @@
-import axios from '../utils/request'
-
-export function getList(){
-    return axios({
-        method:'get',
-        url:'home/page/6/10',
-    })
-}
+import request from "../utils/request";
 
 export function getWriters(){
     return request({

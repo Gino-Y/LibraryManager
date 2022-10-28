@@ -1,6 +1,6 @@
 import axios from 'axios'
 const request = axios.create({
-    baseURL:"/", //基本路径
+    baseURL:"http://47.241.35.150:8030/", //基本路径
     timeout:1000
 });
 //请求拦截器
