@@ -15,6 +15,8 @@ import {
   NGridItem,
   NScrollbar,
   NSwitch,
+    NBreadcrumb,
+    NBreadcrumbItem,
   darkTheme
 } from 'naive-ui'
 import Menu from "./menu.vue";
@@ -41,6 +43,13 @@ import Menu from "./menu.vue";
               </svg>
               </div>
               <div>&nbsp;&nbsp;&nbsp;图书管理系统</div>
+              <n-breadcrumb>
+                <n-breadcrumb-item>&nbsp;&nbsp;&nbsp;图书管理系统</n-breadcrumb-item>
+                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
+                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
+                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
+                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
+              </n-breadcrumb>
             </div>
 
           </n-layout-header>
@@ -60,9 +69,8 @@ import Menu from "./menu.vue";
 
 <style scoped>
 
-.n-layout-header{
+.n-layout-header {
   background: rgba(128, 128, 128, 0.2);
-  /*background: red;*/
   padding: 10px;
   text-align: center;
   font-weight:bold;

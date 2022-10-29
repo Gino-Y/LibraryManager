@@ -17,7 +17,7 @@ onMounted(async ()=>{
   <n-table :bordered="false" :single-line="false" size="small" striped>
     <thead>
       <tr>
-        <th>书籍编号</th>
+        <th>编号</th>
         <th>书名</th>
         <th>作者信息</th>
         <th>出版社</th>
