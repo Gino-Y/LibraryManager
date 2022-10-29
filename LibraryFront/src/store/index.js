@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {getPublishers, getWriters, getBooks} from '../api'
 
-export const listStore = defineStore('list',{
+export const mainStore = defineStore('main',{
     state(){
         return {
             writersArray:[],
