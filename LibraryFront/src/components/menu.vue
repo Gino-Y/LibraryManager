@@ -14,13 +14,10 @@ import {
         style="z-index: 1; height: 93.5vh; width: 100px"
         :bound="24"
     >
-<!--        <n-anchor-link title="作者管理" to="/authors" />-->
-<!--        <n-anchor-link title="出版社管理" href="/publishers" />-->
-<!--        <n-anchor-link title="书籍管理" href="/books" />-->
-
-      <router-link to="/writers">作者管理</router-link><br>
+      <div></div><div></div>
+      <router-link to="/writers">作者&nbsp;&nbsp;&nbsp;管理</router-link><br>
       <router-link to="/publishers">出版社管理</router-link><br>
-      <router-link to="/books">书籍管理</router-link>
+      <router-link to="/books">书籍&nbsp;&nbsp;&nbsp;管理</router-link>
 
     </n-anchor>
 </template>
@@ -29,5 +26,10 @@ import {
 *{
   text-align: left;
   padding: 5px;
+}
+:focus{
+  color: #397e92;
+  background-color: #500000;
+  font-weight:bold;
 }
 </style>

@@ -6,3 +6,18 @@ export function getWriters(){
         method: 'get'
     })
 }
+
+export function getPublishers(){
+    return request({
+        url: 'publishers',
+        method: 'get'
+    })
+}
+
+export function getBooks(){
+    return request({
+        url: 'books',
+        method: 'get'
+    })
+}
+
