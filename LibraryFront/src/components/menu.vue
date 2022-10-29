@@ -15,9 +15,9 @@ import {
         :bound="24"
     >
       <div></div><div></div>
+      <router-link to="/books">书籍&nbsp;&nbsp;&nbsp;管理</router-link><br>
       <router-link to="/writers">作者&nbsp;&nbsp;&nbsp;管理</router-link><br>
       <router-link to="/publishers">出版社管理</router-link><br>
-      <router-link to="/books">书籍&nbsp;&nbsp;&nbsp;管理</router-link>
 
     </n-anchor>
 </template>

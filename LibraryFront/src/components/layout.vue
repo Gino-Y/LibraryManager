@@ -40,7 +40,7 @@ import Menu from "./menu.vue";
                 <path d="M495.89 445.45l-32.23-340c-1.48-15.65-16.94-27-34.53-25.31l-31.85 3c-17.59 1.67-30.65 15.71-29.17 31.36l32.23 340c1.48 15.65 16.94 27 34.53 25.31l31.85-3c17.59-1.67 30.65-15.71 29.17-31.36z" fill="currentColor"></path>
               </svg>
               </div>
-              <div>&nbsp;&nbsp;&nbsp;图书馆里系统</div>
+              <div>&nbsp;&nbsp;&nbsp;图书管理系统</div>
             </div>
 
           </n-layout-header>

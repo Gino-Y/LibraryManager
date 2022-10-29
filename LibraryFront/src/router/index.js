@@ -4,7 +4,7 @@ const routes = [
     {
         path: '/',
         name:'Layout',
-        redirect:'/writers',
+        redirect:'/books',
         component: ()=> import('../components/layout.vue'),
         children:[
             {
