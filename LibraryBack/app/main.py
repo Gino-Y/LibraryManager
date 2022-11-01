@@ -26,7 +26,7 @@ app.add_middleware(
 
 # 创建作者信息
 @app.post('/writer', response_model=Union[schemas.Writer, schemas.GeneralDefine])
-def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_db)):
+async def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_db)):
     res = {
         'message': '創建成功',
         'code': 200,
@@ -46,7 +46,7 @@ def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_db)):
 
 # 获取所有作者信息
 @app.get('/writers', response_model=Union[List[schemas.Writer], schemas.GeneralResDefine])
-def get_all_writer(db: Session = Depends(get_db)):
+async def get_all_writer(db: Session = Depends(get_db)):
     res = {
         'message': '获取成功',
         'code': 200,
@@ -63,7 +63,7 @@ def get_all_writer(db: Session = Depends(get_db)):
 
 # 创建一个出版社信息
 @app.post('/publisher', response_model=Union[schemas.Publisher, schemas.GeneralDefine])
-def create_publisher(publisher: schemas.PublisherCreate, db: Session = Depends(get_db)):
+async def create_publisher(publisher: schemas.PublisherCreate, db: Session = Depends(get_db)):
     res = {
         'message': '创建成功',
         'code': 200,
@@ -83,7 +83,7 @@ def create_publisher(publisher: schemas.PublisherCreate, db: Session = Depends(g
 
 # 获取所有出版社信息
 @app.get('/publishers', response_model=Union[List[schemas.Publisher], schemas.GeneralResDefine])
-def get_all_publishers(db: Session = Depends(get_db)):
+async def get_all_publishers(db: Session = Depends(get_db)):
     res = {
         'message': '获取成功',
         'code': 200,
@@ -101,7 +101,7 @@ def get_all_publishers(db: Session = Depends(get_db)):
 # 创建书籍信息,首先校验book，这里有一点我没搞懂的就是查询应该是走的schemas.Book这个，创建走的schemas.GeneralDefine这个，至于为什么我也不知道，没学过这个
 # 然后查询到了就走DB_book了writer_id: int，只要werterid所以也曼珠，应该是BOOK和GeneralDefine，两个满足其中一个就好了
 @app.post('/book/{writer_id}', response_model=Union[schemas.Book, schemas.GeneralDefine])
-def create_book(writer_id: int, publisher_id_list: List[int], book: schemas.BookCreate, db: Session = Depends(get_db)):
+async def create_book(writer_id: int, publisher_id_list: List[int], book: schemas.BookCreate, db: Session = Depends(get_db)):
     res = {
         'message': '创建成功',
         'code': 200,
