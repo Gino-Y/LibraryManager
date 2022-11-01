@@ -43,12 +43,9 @@ import Menu from "./menu.vue";
               </svg>
               </div>
               <div>&nbsp;&nbsp;&nbsp;图书管理系统</div>
-              <n-breadcrumb>
-                <n-breadcrumb-item>&nbsp;&nbsp;&nbsp;图书管理系统</n-breadcrumb-item>
-                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
-                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
-                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
-                <n-breadcrumb-item>天津分行</n-breadcrumb-item>
+              <n-breadcrumb class="title">
+                <n-breadcrumb-item></n-breadcrumb-item>
+                <n-breadcrumb-item>书籍管理</n-breadcrumb-item>
               </n-breadcrumb>
             </div>
 
@@ -74,6 +71,9 @@ import Menu from "./menu.vue";
   padding: 10px;
   text-align: center;
   font-weight:bold;
+  color: #397e92;
+}
+.title{
   color: #397e92;
 }
 

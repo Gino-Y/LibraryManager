@@ -1,19 +1,29 @@
 <script setup>
-import {NButton, NEllipsis, NTable} from 'naive-ui'
+import {NButton, NEllipsis, NTable, NModal} from 'naive-ui'
 
 import {mainStore} from '../store/index'; // 导入状态管理
 import {storeToRefs} from 'pinia'
 const myMainStore = mainStore() // 实例化状态管理
 const {booksArray} = storeToRefs(myMainStore); //
 
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 onMounted(async ()=>{
   myMainStore.getBooksData()
 })
 
+let showModal= ref(false)
+
+const form = {
+  username: '',
+  email: '',
+}
 </script>
 
 <template>
+  <n-button @click="showModal = true">
+    来吧
+  </n-button>
+
   <n-table :bordered="false" :single-line="false" size="small" striped>
     <thead>
       <tr>
@@ -43,6 +53,23 @@ onMounted(async ()=>{
       </tr>
     </tbody>
   </n-table>
+
+  <n-modal
+      v-model:show="showModal"
+      :mask-closable="false"
+      preset="dialog"
+      title="确认"
+      content="你确认"
+      positive-text="确认"
+      negative-text="算了"
+      @positive-click="onPositiveClick"
+      @negative-click="onNegativeClick"
+      style="
+          opacity: 0.925;
+          width: 80%;
+          height: 80%;
+            "
+  />
 
 </template>
 

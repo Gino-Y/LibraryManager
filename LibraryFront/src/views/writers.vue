@@ -1,5 +1,15 @@
 <script setup>
-import {NButton, NEllipsis, NTable} from 'naive-ui'
+import {
+    NButton,
+    NEllipsis,
+    NTable,
+    NModal,
+    NForm,
+    NFormItem,
+    NInput,
+    NRow,
+    NCol,
+} from 'naive-ui'
 
 import {mainStore} from '../store/index'; // 导入状态管理
 import {storeToRefs} from 'pinia'
@@ -9,14 +19,121 @@ const {writersArray} = storeToRefs(myMainStore); //
 function query(){
   myMainStore.getWritersData()
 }
-import {onMounted} from "vue";
+
+import {onMounted, ref, reactive} from "vue";
 onMounted(async ()=>{
   myMainStore.getWritersData()
 })
+
+let showModal= ref(false)
+
+// const model = reactive({
+//   username: '',
+//   email: '',
+// })
+
+const formRef = ref(null);
+const model = reactive({
+  username:'',
+  email:''
+})
+const rules = {
+  username:[
+    {
+      required:true,
+      message:'请输入用户名'
+    }
+  ],
+  email:[
+    {
+      required:true,
+      message:'请输入邮箱'
+    }
+  ]
+}
+function submitForm(){
+  let formData = new FormData(); //实例化FormData
+  // let formData = {}
+  formData.append('username', model.username); //代表把model中的username添加到formdata对象中
+  formData.append('email', model.email); //代表把model中的email添加到formdata对象中
+}
+//为什么要添加到formdata，因为文件上传是通过文件流的文件，提交的文件需要放在formdata中
+
+// function creatWriter(model).then(res=>{})
 </script>
 
 <template>
 <!--  <n-button @click="query">Query Data</n-button>-->
+  <n-button @click="showModal = true">
+    添加作者信息
+  </n-button>
+  <div></div><br>
+  <n-modal
+      v-model:show="showModal"
+      :mask-closable="false"
+      preset="dialog"
+      title="添加作者信息"
+      content="你确认"
+      positive-text="确认"
+      negative-text="取消"
+      @positive-click="onPositiveClick"
+      @negative-click="onNegativeClick"
+      style="
+          width: 80%;
+          /*opacity: 0.925;*/
+          /*height: 80%;*/
+            "
+  >
+    <n-form ref="formRef" :model="model" :rules="rules">
+      <n-form-item path="username" label="姓名">
+        <n-input v-model:value="model.username" @keydown.enter.prevent></n-input>
+      </n-form-item>
+      <n-form-item path="email" label="邮箱">
+        <n-input v-model:value="model.email" @keydown.enter.prevent></n-input>
+      </n-form-item>
+    </n-form>
+
+<!--    <n-form ref="formRef" :model="model" :rules="rules">-->
+<!--      <n-form-item path="age" label="年龄">-->
+<!--        <n-input v-model:value="model.age" @keydown.enter.prevent />-->
+<!--      </n-form-item>-->
+<!--      <n-form-item path="password" label="密码">-->
+<!--        <n-input-->
+<!--            v-model:value="model.password"-->
+<!--            type="password"-->
+<!--            @input="handlePasswordInput"-->
+<!--            @keydown.enter.prevent-->
+<!--        />-->
+<!--      </n-form-item>-->
+<!--      <n-form-item-->
+<!--          ref="rPasswordFormItemRef"-->
+<!--          first-->
+<!--          path="reenteredPassword"-->
+<!--          label="重复密码"-->
+<!--      >-->
+<!--        <n-input-->
+<!--            v-model:value="model.reenteredPassword"-->
+<!--            :disabled="!model.password"-->
+<!--            type="password"-->
+<!--            @keydown.enter.prevent-->
+<!--        />-->
+<!--      </n-form-item>-->
+<!--      <n-row :gutter="[0, 24]">-->
+<!--        <n-col :span="24">-->
+<!--          <div style="display: flex; justify-content: flex-end">-->
+<!--            <n-button-->
+<!--                :disabled="model.age === null"-->
+<!--                round-->
+<!--                type="primary"-->
+<!--                @click="handleValidateButtonClick"-->
+<!--            >-->
+<!--              验证-->
+<!--            </n-button>-->
+<!--          </div>-->
+<!--        </n-col>-->
+<!--      </n-row>-->
+<!--    </n-form>-->
+  </n-modal>
   <n-table :bordered="false" :single-line="false" size="small" striped>
     <thead>
       <tr>
