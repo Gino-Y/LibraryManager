@@ -21,6 +21,8 @@ function query(){
 }
 
 import {onMounted, ref, reactive} from "vue";
+import {creatWriter} from '../api'
+
 onMounted(async ()=>{
   myMainStore.getWritersData()
 })
@@ -34,28 +36,32 @@ let showModal= ref(false)
 
 const formRef = ref(null);
 const model = reactive({
-  username:'',
-  email:''
+  username:'希特勒3',
+  email:'xitel3@example.com'
 })
 const rules = {
   username:[
     {
       required:true,
-      message:'请输入用户名'
+      message:'请输入用户名',
+      trigger: ['input', 'blur']
     }
   ],
   email:[
     {
       required:true,
-      message:'请输入邮箱'
+      message:'请输入邮箱',
+      trigger: ['input', 'blur']
     }
   ]
 }
-function submitForm(){
-  let formData = new FormData(); //实例化FormData
-  // let formData = {}
-  formData.append('username', model.username); //代表把model中的username添加到formdata对象中
-  formData.append('email', model.email); //代表把model中的email添加到formdata对象中
+function onPositiveClick(){ //弹框中单击确认调用函数
+  creatWriter(model).then(res=>{   //发送请求，这里的请求不用在pinia中处理，因为每单一次就要请求
+    console.log(res);
+    //服务端如果返回200，这里调用下
+    myMainStore.getWritersData();
+  })
+  
 }
 //为什么要添加到formdata，因为文件上传是通过文件流的文件，提交的文件需要放在formdata中
 

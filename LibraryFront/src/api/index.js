@@ -21,3 +21,10 @@ export function getBooks(){
     })
 }
 
+export function creatWriter(data){  //提交作者信息
+    return request({
+        url: 'writers',
+        method: 'post',
+        data
+    })
+}
