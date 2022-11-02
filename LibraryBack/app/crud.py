@@ -7,10 +7,6 @@ import schemas
 from app.models.models import Writer, Book, Publisher, Match
 
 
-# from app.models import models
-# user_info = db.query(models.Writer).filter(models.Writer.username == username).first()
-
-
 def get_writer_by_username(db: Session, username: str):
     user_info = db.query(Writer).filter(Writer.username == username).first()
     return user_info
