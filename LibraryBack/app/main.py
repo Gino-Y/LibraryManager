@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List, Union
@@ -24,8 +24,8 @@ app.add_middleware(
 )
 
 
-# 创建作者信息
-@app.post('/writer', response_model=Union[schemas.Writer, schemas.GeneralDefine])
+# 曾 一 作者
+@app.post('/creat_writer', response_model=Union[schemas.Writer, schemas.GeneralDefine])
 async def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_db)):
     res = {
         'message': '創建成功',
@@ -44,8 +44,8 @@ async def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_
     return res
 
 
-# 获取所有作者信息
-@app.get('/writers', response_model=Union[List[schemas.Writer], schemas.GeneralResDefine])
+# 查 多 作者
+@app.get('/get_all_writer', response_model=Union[List[schemas.Writer], schemas.GeneralResDefine])
 async def get_all_writer(db: Session = Depends(get_db)):
     res = {
         'message': '获取成功',
@@ -61,8 +61,8 @@ async def get_all_writer(db: Session = Depends(get_db)):
     return res
 
 
-# 创建一个出版社信息
-@app.post('/publisher', response_model=Union[schemas.Publisher, schemas.GeneralDefine])
+# 曾 一 出版社
+@app.post('/create_publisher', response_model=Union[schemas.Publisher, schemas.GeneralDefine])
 async def create_publisher(publisher: schemas.PublisherCreate, db: Session = Depends(get_db)):
     res = {
         'message': '创建成功',
@@ -81,9 +81,9 @@ async def create_publisher(publisher: schemas.PublisherCreate, db: Session = Dep
     return res
 
 
-# 获取所有出版社信息
-@app.get('/publishers', response_model=Union[List[schemas.Publisher], schemas.GeneralResDefine])
-async def get_all_publishers(db: Session = Depends(get_db)):
+# 查 多 出版社
+@app.get('/get_all_publisher', response_model=Union[List[schemas.Publisher], schemas.GeneralResDefine])
+async def get_all_publisher(db: Session = Depends(get_db)):
     res = {
         'message': '获取成功',
         'code': 200,
@@ -98,10 +98,10 @@ async def get_all_publishers(db: Session = Depends(get_db)):
     return res
 
 
-# 创建书籍信息,首先校验book，这里有一点我没搞懂的就是查询应该是走的schemas.Book这个，创建走的schemas.GeneralDefine这个，至于为什么我也不知道，没学过这个
-# 然后查询到了就走DB_book了writer_id: int，只要werterid所以也曼珠，应该是BOOK和GeneralDefine，两个满足其中一个就好了
-@app.post('/book/{writer_id}', response_model=Union[schemas.Book, schemas.GeneralDefine])
-async def create_book(writer_id: int, publisher_id_list: List[int], book: schemas.BookCreate, db: Session = Depends(get_db)):
+# 曾 一 书籍
+@app.post('/create_book/{writer_id}', response_model=Union[schemas.Book, schemas.GeneralDefine])
+async def create_book(writer_id: int, publisher_id_list: List[int], book: schemas.BookCreate,
+                      db: Session = Depends(get_db)):
     res = {
         'message': '创建成功',
         'code': 200,
@@ -109,7 +109,7 @@ async def create_book(writer_id: int, publisher_id_list: List[int], book: schema
     }
     db_book = crud.get_book_by_title(db, book.title)
     if db_book:
-        #这里返回db_book刚好满足BOOk
+        # 这里返回db_book刚好满足BOOk
         return db_book
         # return HTTPException(status_code=400, detail='book already exists')
     try:
@@ -119,17 +119,42 @@ async def create_book(writer_id: int, publisher_id_list: List[int], book: schema
         res['message'] = '创建失败'
         res['code'] = 208
     return res
-# 这里就满足后面一个
 
 
-# # 獲取所有的書籍
-# @app.get('/books')
-# def get_all_book(db: Session = Depends(get_db)):
-#     return crud.get_all_books(db)
+# 删 一 书籍
+@app.get('/delete_book', response_model=schemas.GeneralUpdate)
+async def delete_book(id=Query(), db: Session = Depends(get_db)):
+    res = {
+        'message': '删除成功',
+        'code': 200,
+        'data': []
+    }
+    try:
+        result = crud.book_delete(db, id)
+    except:
+        res['message'] = '删除失败'
+        res['code'] = 208
+    return res
 
 
-# 獲取所有的書籍
-@app.get('/books', response_model=schemas.GeneralResDefine)
+# 改 一 书籍
+@app.post('/updata_book', response_model=schemas.GeneralUpdate)
+async def updata_book(book: schemas.BookUpdate, db: Session = Depends(get_db)):
+    res = {
+        'message': '修改成功',
+        'code': 200,
+        'data': []
+    }
+    try:
+        result = crud.book_update(db, book)
+    except:
+        res['message'] = '修改失败'
+        res['code'] = 208
+    return res
+
+
+# 查 多 书籍
+@app.get('/get_all_book', response_model=schemas.GeneralResDefine)
 async def get_all_book(db: Session = Depends(get_db)):
     res = {
         'message': '获取成功',

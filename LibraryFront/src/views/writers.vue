@@ -17,22 +17,18 @@ const myMainStore = mainStore() // 实例化状态管理
 const {writersArray} = storeToRefs(myMainStore); //
 // 异步请求
 function query(){
-  myMainStore.getWritersData()
+  myMainStore.getAllWriter()
 }
 
 import {onMounted, ref, reactive} from "vue";
-import {creatWriter} from '../api'
+import {creat_writer} from '../api'
 
 onMounted(async ()=>{
-  myMainStore.getWritersData()
+  await myMainStore.getAllWriter()
 })
 
 let showModal= ref(false)
 
-// const model = reactive({
-//   username: '',
-//   email: '',
-// })
 
 const formRef = ref(null);
 const model = reactive({
@@ -56,10 +52,10 @@ const rules = {
   ]
 }
 function onPositiveClick(){ //弹框中单击确认调用函数
-  creatWriter(model).then(res=>{   //发送请求，这里的请求不用在pinia中处理，因为每单一次就要请求
-    console.log(res);
+  creat_writer(model).then(res=>{   //发送请求，这里的请求不用在pinia中处理，因为每单一次就要请求
+    console.log(res)
     //服务端如果返回200，这里调用下
-    myMainStore.getWritersData();
+    myMainStore.getAllWriter()
   })
   
 }
@@ -84,11 +80,7 @@ function onPositiveClick(){ //弹框中单击确认调用函数
       negative-text="取消"
       @positive-click="onPositiveClick"
       @negative-click="onNegativeClick"
-      style="
-          width: 80%;
-          /*opacity: 0.925;*/
-          /*height: 80%;*/
-            "
+      style="width: 80%;"
   >
     <n-form ref="formRef" :model="model" :rules="rules">
       <n-form-item path="username" label="姓名">

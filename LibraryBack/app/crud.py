@@ -67,8 +67,38 @@ def create_book_by_writer(db: Session, book: schemas.BookBase, writer_id: int, p
         'publisher_data': db_book.publisher_data,
         'writers': db_book.book_to_writer,
         'publishers': db_book.book_to_publisher
-        }
+    }
     return obj
+
+
+def book_update(db: Session, book: schemas.BookUpdate):
+    # 根据id查询数据信息，然后修改信息
+    book_info = db.query(Book).filter(Book.id == book.id).first()
+    book_info.id = book.id
+    book_info.title = book.title
+    book_info.price = book.price
+    book_info.writer_id = book.writer_id
+    db.commit()
+    # 先删除match的数据
+    match_info = db.query(Match).filter(Match.book_id == book.id).delete()
+    db.commit()
+    # 重新写入match数据
+    publishers = book.publishers
+    for publisher in publishers:
+        match = Match()
+        match.book_id = book.id
+        match.publisher_id = publisher
+        db.add(match)
+        db.commit()
+
+
+def book_delete(db: Session, id: schemas.BookDelete):
+    id = int(id)
+    # 先删除match的数据
+    match_info = db.query(Match).filter(Match.book_id == id).delete()
+    db.commit()
+    book_info = db.query(Book).filter(Book.id == id).delete()
+    db.commit()
 
 
 # 获取所有的书籍信息
