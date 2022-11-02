@@ -30,14 +30,14 @@ async def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_
     res = {
         'message': '創建成功',
         'code': 200,
-        'obj': {}
+        'data': {}
     }
     db_writer = crud.get_writer_by_username(db, writer.username)
     if db_writer:
         raise HTTPException(status_code=400, detail='writer already exists')
     try:
         obj = crud.create_writer(db, writer)
-        res['obj'] = obj
+        res['data'] = obj
     except Exception as e:
         res['message'] = '創建失敗'
         res['code'] = 208
@@ -74,7 +74,7 @@ async def create_publisher(publisher: schemas.PublisherCreate, db: Session = Dep
         raise HTTPException(status_code=400, detail='publisher already exists')
     try:
         obj = crud.create_publisher(db, publisher)
-        res['obj'] = obj
+        res['data'] = obj
     except:
         res['message'] = '创建失败'
         res['code'] = 208
@@ -130,7 +130,7 @@ async def create_book(writer_id: int, publisher_id_list: List[int], book: schema
 
 # 獲取所有的書籍
 @app.get('/books', response_model=schemas.GeneralResDefine)
-def get_all_book(db: Session = Depends(get_db)):
+async def get_all_book(db: Session = Depends(get_db)):
     res = {
         'message': '获取成功',
         'code': 200,

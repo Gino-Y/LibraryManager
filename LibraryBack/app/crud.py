@@ -1,3 +1,6 @@
+"""
+ORM操作数据库动作
+"""
 from sqlalchemy.orm import Session
 from typing import List
 import schemas

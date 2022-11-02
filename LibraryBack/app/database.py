@@ -1,3 +1,6 @@
+"""
+连接数据库
+"""
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker

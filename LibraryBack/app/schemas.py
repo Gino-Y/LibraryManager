@@ -1,3 +1,6 @@
+"""
+数据校验
+"""
 from datetime import datetime
 
 from pydantic import BaseModel, EmailStr
