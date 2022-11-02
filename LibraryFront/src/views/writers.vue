@@ -36,8 +36,8 @@ let showModal= ref(false)
 
 const formRef = ref(null);
 const model = reactive({
-  username:'希特勒3',
-  email:'xitel3@example.com'
+  username:'请输入作者姓名',
+  email:'请输入作者邮箱'
 })
 const rules = {
   username:[
