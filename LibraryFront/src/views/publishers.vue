@@ -8,7 +8,7 @@ const {publishersArray} = storeToRefs(myMainStore); //
 
 import {onMounted} from "vue";
 onMounted(async ()=>{
-  myMainStore.getPublishersData()
+  myMainStore.getAllPublisher()
 })
 
 </script>

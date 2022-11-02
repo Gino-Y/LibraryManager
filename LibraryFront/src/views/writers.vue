@@ -20,10 +20,11 @@ function query(){
   myMainStore.getAllWriter()
 }
 
-import {onMounted, ref, reactive} from "vue";
+import {onMounted, ref, reactive } from "vue";
 import {creat_writer} from '../api'
 
 onMounted(async ()=>{
+  console.log(writersArray)
   await myMainStore.getAllWriter()
 })
 
@@ -35,6 +36,7 @@ const model = reactive({
   username:'请输入作者姓名',
   email:'请输入作者邮箱'
 })
+// const rules = {}
 const rules = {
   username:[
     {
@@ -78,7 +80,7 @@ function onPositiveClick(){ //弹框中单击确认调用函数
       content="你确认"
       positive-text="确认"
       negative-text="取消"
-      @positive-click="onPositiveClick"
+      @positive-click="onPositiveClick, info"
       @negative-click="onNegativeClick"
       style="width: 80%;"
   >

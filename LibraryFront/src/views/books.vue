@@ -7,8 +7,10 @@ const myMainStore = mainStore() // 实例化状态管理
 const {booksArray} = storeToRefs(myMainStore); //
 
 import {onMounted, ref} from "vue";
+import {delete_book} from '../api'
+
 onMounted(async ()=>{
-  myMainStore.getBooksData()
+  myMainStore.getAllBook()
 })
 
 let showModal= ref(false)
@@ -17,6 +19,12 @@ const form = {
   username: '',
   email: '',
 }
+
+let id = ref()
+function deleteBook(id) {
+  delete_book(id)
+}
+
 </script>
 
 <template>
@@ -27,6 +35,7 @@ const form = {
   <n-table :bordered="false" :single-line="false" size="small" striped>
     <thead>
       <tr>
+        <th>删除</th>
         <th>编号</th>
         <th>书名</th>
         <th>作者信息</th>
@@ -37,6 +46,9 @@ const form = {
     </thead>
     <tbody>
       <tr v-for="(item, index) in booksArray" :key="item.id">
+        <td>
+          <n-button @click="deleteBook(item.id)" size="small" strong secondary circle type="error">X</n-button>
+        </td>
         <td>{{item.id}}</td>
         <td>{{item.title}}</td>
         <td>
@@ -64,11 +76,7 @@ const form = {
       negative-text="算了"
       @positive-click="onPositiveClick"
       @negative-click="onNegativeClick"
-      style="
-          opacity: 0.925;
-          width: 80%;
-          height: 80%;
-            "
+      style="width: 80%;"
   />
 
 </template>

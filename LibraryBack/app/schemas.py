@@ -28,7 +28,7 @@ class WriterCreate(WriterBase):
     email: EmailStr
 
 
-# 作者响应体校验，需要id及email，这里也是满足的id和email
+# 作者响应体校验
 class Writer(WriterBase):
     id: int
     email: EmailStr
@@ -65,7 +65,7 @@ class BookCreate(BookBase):
     pass
 
 
-# 书籍响应体校验模型，需要返回参数里面有这个weriterid,这个是有的
+# 书籍响应体校验模型
 class Book(BookBase):
     writer_id: int
 
@@ -79,13 +79,7 @@ class BookAll(BaseModel):
     price: float
     publisher_data: datetime
     writers: Writer
-    # Writer需要的
-    # id: int
-    # email: EmailStr
     publishers: List[Publisher]
-    # 这个是一个list类型也没错，然后下标0里面存在id
-    # Publisher需要的但是他外面还有一个list所以他2还需要是list的格式的然后里面才有id
-    # id: int，是不是和这些都一样都有的
 
 
 # 曾_成功

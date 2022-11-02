@@ -16,7 +16,7 @@ export const mainStore = defineStore('main',{
             let {code, message, data} = res.data
             if(code == 200){
                 this.writersArray = res.data.data; //请求到的数据保存在state.writersList
-                this.$message(message)
+                this.publishersArray.message
             }
         },
         async getAllPublisher(){ // 在pinia中发送请求
@@ -24,7 +24,7 @@ export const mainStore = defineStore('main',{
             let {code, message, data} = res.data
             if(code == 200){
                 this.publishersArray = res.data.data; //请求到的数据保存在state.writersList
-                this.$message(message)
+                this.publishersArray.message
             }
         },
         async getAllBook(){ // 在pinia中发送请求
@@ -32,7 +32,7 @@ export const mainStore = defineStore('main',{
             let {code, message, data} = res.data
             if(code == 200){
                 this.booksArray = res.data.data; //请求到的数据保存在state.writersList
-                this.$message(message)
+                this.publishersArray.message
             }
         },
     },
