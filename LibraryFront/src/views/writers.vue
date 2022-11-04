@@ -21,7 +21,7 @@ function query(){
 }
 
 import {onMounted, ref, reactive } from "vue";
-import {creat_writer} from '../api'
+import {create_writer} from '../api'
 
 onMounted(async ()=>{
   console.log(writersArray)
@@ -29,8 +29,6 @@ onMounted(async ()=>{
 })
 
 let showModal= ref(false)
-
-
 const formRef = ref(null);
 const model = reactive({
   username:'请输入作者姓名',
@@ -54,12 +52,11 @@ const rules = {
   ]
 }
 function onPositiveClick(){ //弹框中单击确认调用函数
-  creat_writer(model).then(res=>{   //发送请求，这里的请求不用在pinia中处理，因为每单一次就要请求
+  create_writer(model).then(res=>{   //发送请求，这里的请求不用在pinia中处理，因为每单一次就要请求
     console.log(res)
     //服务端如果返回200，这里调用下
     myMainStore.getAllWriter()
   })
-  
 }
 //为什么要添加到formdata，因为文件上传是通过文件流的文件，提交的文件需要放在formdata中
 
@@ -67,11 +64,6 @@ function onPositiveClick(){ //弹框中单击确认调用函数
 </script>
 
 <template>
-<!--  <n-button @click="query">Query Data</n-button>-->
-  <n-button @click="showModal = true">
-    添加作者信息
-  </n-button>
-  <div></div><br>
   <n-modal
       v-model:show="showModal"
       :mask-closable="false"
@@ -149,6 +141,9 @@ function onPositiveClick(){ //弹框中单击确认调用函数
     </tr>
   </n-table>
 
+  <n-button @click="showModal = true">
+    添加作者
+  </n-button>
 </template>
 
 <style scoped>

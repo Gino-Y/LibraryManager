@@ -61,8 +61,10 @@ class BookBase(BaseModel):
 
 
 # 书籍请求体校验模型
-class BookCreate(BookBase):
-    pass
+class BookCreate(BaseModel):
+    writer_id: int
+    publisher_id_list: List[int]
+    book: BookBase
 
 
 # 书籍响应体校验模型
