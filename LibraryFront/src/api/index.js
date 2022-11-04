@@ -53,3 +53,11 @@ export function delete_publisher(data){
     })
 }
 
+export function delete_writer(data){
+    return request({
+        url: 'delete_writer',
+        method: 'get',
+        params: data
+    })
+}
+

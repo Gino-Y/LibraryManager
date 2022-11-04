@@ -32,7 +32,7 @@ let showModal= ref(false)
 const formRef = ref(null);
 const model = reactive({
   username:'请输入作者姓名',
-  email:'请输入作者邮箱'
+  email:'请输入邮箱@gmail.com'
 })
 // const rules = {}
 const rules = {
@@ -46,7 +46,7 @@ const rules = {
   email:[
     {
       required:true,
-      message:'请输入邮箱',
+      message:'请输入邮箱@gmail.com',
       trigger: ['input', 'blur']
     }
   ]
@@ -60,7 +60,13 @@ function onPositiveClick(){ //弹框中单击确认调用函数
 }
 //为什么要添加到formdata，因为文件上传是通过文件流的文件，提交的文件需要放在formdata中
 
-// function creatWriter(model).then(res=>{})
+let id = ref()
+function deleteWriter(id) {
+  myMainStore.deleteWriter(id)
+  // myMainStore.getAllWriter()
+  // location.reload()
+}
+
 </script>
 
 <template>
@@ -129,12 +135,23 @@ function onPositiveClick(){ //弹框中单击确认调用函数
   <n-table :bordered="false" :single-line="false" size="small" striped>
     <thead>
       <tr>
+        <th>删除</th>
         <th>编号</th>
         <th>姓名</th>
         <th>邮箱</th>
       </tr>
     </thead>
     <tr v-for="(item, index) in writersArray" :key="item.id">
+      <td>
+        <n-button
+            @click="deleteWriter(item.id)"
+            size="small"
+            strong
+            secondary
+            circle
+            type="error"
+        >X</n-button>
+      </td>
       <td>{{item.id}}</td>
       <td>{{item.username}}</td>
       <td>{{item.email}}</td>

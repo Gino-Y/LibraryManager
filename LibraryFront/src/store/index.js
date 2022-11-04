@@ -5,6 +5,7 @@ import {
     get_all_book,
     delete_book,
     delete_publisher,
+    delete_writer,
 } from '../api'
 
 export const mainStore = defineStore('main',{
@@ -41,7 +42,7 @@ export const mainStore = defineStore('main',{
                 this.publishersArray.message
             }
         },
-        async deleteBook(id){ // 在pinia中发送请求
+        async deleteBook(id){
             let res = await delete_book({id: id});
             let {code, message, data} = res.data
             if(code == 200){
@@ -49,8 +50,18 @@ export const mainStore = defineStore('main',{
                 this.publishersArray.message
             }
         },
-        async deletePublisher(id){ // 在pinia中发送请求
+        async deletePublisher(id){
             let res = await delete_publisher({id: id});
+            let {code, message, data} = res.data
+            if(code == 200){
+                this.booksArray = res.data.data;
+                this.publishersArray.message
+            }
+        },
+        async deleteWriter(id){
+            let res = await delete_writer({id: id});
+            // console.log(res)
+            console.log('ooo')
             let {code, message, data} = res.data
             if(code == 200){
                 this.booksArray = res.data.data;

@@ -86,14 +86,16 @@ function deletePublisher(id) {
       </tr>
     </thead>
       <tr v-for="(item, index) in publishersArray" :key="item.id">
-        <n-button
-            @click="deletePublisher(item.id)"
-            size="small"
-            strong
-            secondary
-            circle
-            type="error"
-        >X</n-button>
+        <td>
+          <n-button
+              @click="deletePublisher(item.id)"
+              size="small"
+              strong
+              secondary
+              circle
+              type="error"
+          >X</n-button>
+        </td>
         <td>{{item.id}}</td>
         <td>{{item.name}}</td>
       </tr>

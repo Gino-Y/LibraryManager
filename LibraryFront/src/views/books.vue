@@ -24,6 +24,7 @@ let id = ref()
 function deleteBook(id) {
   myMainStore.deleteBook(id)
   myMainStore.getAllBook()
+  location.reload()
 }
 
     // location.reload()
