@@ -31,7 +31,7 @@ def writer_delete(db: Session, id: schemas.WriterDelete):
     # 先删除match的数据
     match_info = db.query(Match).filter(Match.writer_id == id).delete()
     db.commit()
-    book_info = db.query(Writer).filter(Writer.id == id).delete()
+    writer_info = db.query(Writer).filter(Writer.id == id).delete()
     db.commit()
 
 
@@ -65,7 +65,7 @@ def publisher_delete(db: Session, id: schemas.PublisherDelete):
     # 先删除match的数据
     match_info = db.query(Match).filter(Match.publisher_id == id).delete()
     db.commit()
-    book_info = db.query(Publisher).filter(Publisher.id == id).delete()
+    publisher_info = db.query(Publisher).filter(Publisher.id == id).delete()
     db.commit()
 
 

@@ -54,6 +54,7 @@ let id = ref()
 function deletePublisher(id) {
   myMainStore.deletePublisher(id)
   myMainStore.getAllPublisher()
+  location.reload()
 }
 </script>
 

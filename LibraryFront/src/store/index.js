@@ -60,8 +60,7 @@ export const mainStore = defineStore('main',{
         },
         async deleteWriter(id){
             let res = await delete_writer({id: id});
-            // console.log(res)
-            console.log('ooo')
+            console.log(res)
             let {code, message, data} = res.data
             if(code == 200){
                 this.booksArray = res.data.data;
