@@ -23,6 +23,10 @@ class BookDelete(BaseModel):
     id: int
 
 
+class PublisherDelete(BaseModel):
+    id: int
+
+
 # 作者请求体校验
 class WriterCreate(WriterBase):
     email: EmailStr

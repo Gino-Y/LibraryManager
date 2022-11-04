@@ -50,6 +50,11 @@ const rules = {
   ],
 }
 
+let id = ref()
+function deletePublisher(id) {
+  myMainStore.deletePublisher(id)
+  myMainStore.getAllPublisher()
+}
 </script>
 
 <template>
@@ -75,11 +80,20 @@ const rules = {
   <n-table :bordered="false" :single-line="false" size="small" striped>
     <thead>
       <tr>
+        <th>删除</th>
         <th>编号</th>
         <th>出版社</th>
       </tr>
     </thead>
       <tr v-for="(item, index) in publishersArray" :key="item.id">
+        <n-button
+            @click="deletePublisher(item.id)"
+            size="small"
+            strong
+            secondary
+            circle
+            type="error"
+        >X</n-button>
         <td>{{item.id}}</td>
         <td>{{item.name}}</td>
       </tr>

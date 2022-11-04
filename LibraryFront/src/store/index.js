@@ -1,5 +1,11 @@
 import {defineStore} from "pinia";
-import {get_all_publisher, get_all_writer, get_all_book, delete_book} from '../api'
+import {
+    get_all_publisher,
+    get_all_writer,
+    get_all_book,
+    delete_book,
+    delete_publisher,
+} from '../api'
 
 export const mainStore = defineStore('main',{
     state(){
@@ -37,6 +43,14 @@ export const mainStore = defineStore('main',{
         },
         async deleteBook(id){ // 在pinia中发送请求
             let res = await delete_book({id: id});
+            let {code, message, data} = res.data
+            if(code == 200){
+                this.booksArray = res.data.data;
+                this.publishersArray.message
+            }
+        },
+        async deletePublisher(id){ // 在pinia中发送请求
+            let res = await delete_publisher({id: id});
             let {code, message, data} = res.data
             if(code == 200){
                 this.booksArray = res.data.data;
