@@ -1,3 +1,5 @@
+from urllib import request
+
 import uvicorn
 from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,7 +27,7 @@ app.add_middleware(
 
 
 # 曾 一 作者
-@app.post('/creat_writer', response_model=Union[schemas.Writer, schemas.GeneralDefine])
+@app.post('/create_writer', response_model=Union[schemas.Writer, schemas.GeneralDefine])
 async def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_db)):
     res = {
         'message': '創建成功',
@@ -34,10 +36,11 @@ async def create_writer(writer: schemas.WriterCreate, db: Session = Depends(get_
     }
     db_writer = crud.get_writer_by_username(db, writer.username)
     if db_writer:
+        res['message'] = '当前作者已记录'
         raise HTTPException(status_code=400, detail='writer already exists')
     try:
-        obj = crud.create_writer(db, writer)
-        res['data'] = obj
+        result = crud.create_writer(db, writer)
+        res['data'] = result
     except Exception as e:
         res['message'] = '創建失敗'
         res['code'] = 208
@@ -71,10 +74,11 @@ async def create_publisher(publisher: schemas.PublisherCreate, db: Session = Dep
     }
     db_publisher = crud.get_publisher_by_name(db, publisher.name)
     if db_publisher:
+        res['message'] = '当前出版社已记录'
         raise HTTPException(status_code=400, detail='publisher already exists')
     try:
-        obj = crud.create_publisher(db, publisher)
-        res['data'] = obj
+        result = crud.create_publisher(db, publisher)
+        res['data'] = result
     except:
         res['message'] = '创建失败'
         res['code'] = 208
@@ -99,9 +103,11 @@ async def get_all_publisher(db: Session = Depends(get_db)):
 
 
 # 曾 一 书籍
-@app.post('/create_book/{writer_id}', response_model=Union[schemas.Book, schemas.GeneralDefine])
-async def create_book(writer_id: int, publisher_id_list: List[int], book: schemas.BookCreate,
-                      db: Session = Depends(get_db)):
+@app.post('/create_book', response_model=Union[schemas.Book, schemas.GeneralDefine])
+async def create_book(Book: schemas.BookCreate, db: Session = Depends(get_db)):
+    book = Book.book
+    writer_id = Book.writer_id
+    publisher_id_list = Book.publisher_id_list
     res = {
         'message': '创建成功',
         'code': 200,
@@ -109,12 +115,12 @@ async def create_book(writer_id: int, publisher_id_list: List[int], book: schema
     }
     db_book = crud.get_book_by_title(db, book.title)
     if db_book:
-        # 这里返回db_book刚好满足BOOk
-        return db_book
-        # return HTTPException(status_code=400, detail='book already exists')
+        res['message'] = '当前出版社已记录'
+        # return db_book
+        raise HTTPException(status_code=400, detail='book already exists')
     try:
-        obj = crud.create_book_by_writer(db, book, writer_id, publisher_id_list)
-        res['data'] = obj
+        result = crud.create_book_by_writer(db, book, writer_id, publisher_id_list)
+        res['data'] = result
     except:
         res['message'] = '创建失败'
         res['code'] = 208
@@ -147,6 +153,7 @@ async def updata_book(book: schemas.BookUpdate, db: Session = Depends(get_db)):
     }
     try:
         result = crud.book_update(db, book)
+        # res['data'] = result
     except:
         res['message'] = '修改失败'
         res['code'] = 208

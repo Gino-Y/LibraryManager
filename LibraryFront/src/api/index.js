@@ -1,8 +1,8 @@
 import request from "../utils/request";
 
-export function creat_writer(data){  //提交作者信息
+export function create_writer(data){  //提交作者信息
     return request({
-        url: 'creat_writer',
+        url: 'create_writer',
         method: 'post',
         data
     })
@@ -12,6 +12,14 @@ export function get_all_writer(){
     return request({
         url: 'get_all_writer',
         method: 'get'
+    })
+}
+
+export function create_publisher(data){
+    return request({
+        url: 'create_publisher',
+        method: 'post',
+        data
     })
 }
 
