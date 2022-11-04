@@ -51,6 +51,15 @@ def get_book_by_title(db: Session, title: str):
     return res
 
 
+def publisher_delete(db: Session, id: schemas.PublisherDelete):
+    id = int(id)
+    # 先删除match的数据
+    match_info = db.query(Match).filter(Match.publisher_id == id).delete()
+    db.commit()
+    book_info = db.query(Publisher).filter(Publisher.id == id).delete()
+    db.commit()
+
+
 # 根据作者ID、出版社ID列表、书籍信息，创建书籍
 def create_book_by_writer(db: Session, book: schemas.BookBase, writer_id: int, publisher_id_list: List[int]):
     db_book = Book(**book.dict(), writer_id=writer_id)

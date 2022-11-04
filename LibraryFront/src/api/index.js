@@ -45,3 +45,11 @@ export function delete_book(data){
     })
 }
 
+export function delete_publisher(data){
+    return request({
+        url: 'delete_publisher',
+        method: 'get',
+        params: data
+    })
+}
+

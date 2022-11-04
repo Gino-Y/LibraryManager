@@ -85,6 +85,22 @@ async def create_publisher(publisher: schemas.PublisherCreate, db: Session = Dep
     return res
 
 
+# 删 一 出版社
+@app.get('/delete_publisher', response_model=schemas.GeneralUpdate)
+async def delete_book(id=Query(), db: Session = Depends(get_db)):
+    res = {
+        'message': '删除成功',
+        'code': 200,
+        'data': []
+    }
+    try:
+        result = crud.publisher_delete(db, id)
+    except:
+        res['message'] = '删除失败'
+        res['code'] = 208
+    return res
+
+
 # 查 多 出版社
 @app.get('/get_all_publisher', response_model=Union[List[schemas.Publisher], schemas.GeneralResDefine])
 async def get_all_publisher(db: Session = Depends(get_db)):
