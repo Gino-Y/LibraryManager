@@ -26,6 +26,15 @@ def get_all_writer(db: Session):
     return db.query(Writer).all()
 
 
+def writer_delete(db: Session, id: schemas.WriterDelete):
+    id = int(id)
+    # 先删除match的数据
+    match_info = db.query(Match).filter(Match.writer_id == id).delete()
+    db.commit()
+    book_info = db.query(Writer).filter(Writer.id == id).delete()
+    db.commit()
+
+
 def get_publisher_by_name(db: Session, name: str):
     publisher_info = db.query(Publisher).filter(Publisher.name == name).first()
     return publisher_info

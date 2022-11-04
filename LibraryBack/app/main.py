@@ -101,6 +101,22 @@ async def delete_book(id=Query(), db: Session = Depends(get_db)):
     return res
 
 
+# 删 一 作者
+@app.get('/delete_writer', response_model=schemas.GeneralUpdate)
+async def delete_writer(id=Query(), db: Session = Depends(get_db)):
+    res = {
+        'message': '删除成功',
+        'code': 200,
+        'data': []
+    }
+    try:
+        result = crud.writer_delete(db, id)
+    except:
+        res['message'] = '删除失败'
+        res['code'] = 208
+    return res
+
+
 # 查 多 出版社
 @app.get('/get_all_publisher', response_model=Union[List[schemas.Publisher], schemas.GeneralResDefine])
 async def get_all_publisher(db: Session = Depends(get_db)):
