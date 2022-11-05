@@ -11,7 +11,7 @@ class WriterBase(BaseModel):
     username: str
 
 
-class BookUpdate(BaseModel):
+class publisherBookUpdate(BaseModel):
     id: int
     title: str
     price: int

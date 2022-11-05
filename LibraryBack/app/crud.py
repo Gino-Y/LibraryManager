@@ -110,6 +110,27 @@ def book_update(db: Session, book: schemas.BookUpdate):
         db.commit()
 
 
+def publisher_update(db: Session, publisher: schemas.PublisherUpdate):
+    # 根据id查询数据信息，然后修改信息
+    publisher_info = db.query(Book).filter(Book.id == publisher.id).first()
+    publisher_info.id = publisher.id
+    publisher_info.title = publisher.title
+    publisher_info.price = publisher.price
+    publisher_info.writer_id = publisher.writer_id
+    db.commit()
+    # 先删除match的数据
+    match_info = db.query(Match).filter(Match.publisher_id == publisher.id).delete()
+    db.commit()
+    # 重新写入match数据
+    publishers = publisher.publishers
+    for publisher in publishers:
+        match = Match()
+        match.book_id = publisher.id
+        match.publisher_id = publisher
+        db.add(match)
+        db.commit()
+
+
 def book_delete(db: Session, id: schemas.BookDelete):
     id = int(id)
     # 先删除match的数据
