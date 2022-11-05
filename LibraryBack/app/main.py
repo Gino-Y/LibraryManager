@@ -119,7 +119,7 @@ async def delete_book(id=Query(), db: Session = Depends(get_db)):
 
 # 改 一 出版社
 @app.post('/updata_publisher', response_model=schemas.GeneralUpdate)
-async def updata_publisher(publisher: schemas.PublisherUpdate, db: Session = Depends(get_db)):
+async def updata_publisher(publisher: schemas.BookCreate, db: Session = Depends(get_db)):
     res = {
         'message': '修改成功',
         'code': 200,
@@ -194,7 +194,7 @@ async def delete_book(id=Query(), db: Session = Depends(get_db)):
 
 # 改 一 书籍
 @app.post('/updata_book', response_model=schemas.GeneralUpdate)
-async def updata_book(book: schemas.BookUpdate, db: Session = Depends(get_db)):
+async def updata_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
     res = {
         'message': '修改成功',
         'code': 200,

@@ -29,8 +29,8 @@ def get_all_writer(db: Session):
 def writer_delete(db: Session, id: schemas.WriterDelete):
     id = int(id)
     # 先删除match的数据
-    match_info = db.query(Match).filter(Match.writer_id == id).delete()
-    db.commit()
+    # match_info = db.query(Match).filter(Match.writer_id == id).delete()
+    # db.commit()
     writer_info = db.query(Writer).filter(Writer.id == id).delete()
     db.commit()
 
@@ -89,7 +89,7 @@ def create_book_by_writer(db: Session, book: schemas.BookBase, writer_id: int, p
     return obj
 
 
-def book_update(db: Session, book: schemas.BookUpdate):
+def book_update(db: Session, book: schemas.BookCreate):
     # 根据id查询数据信息，然后修改信息
     book_info = db.query(Book).filter(Book.id == book.id).first()
     book_info.id = book.id
@@ -110,13 +110,11 @@ def book_update(db: Session, book: schemas.BookUpdate):
         db.commit()
 
 
-def publisher_update(db: Session, publisher: schemas.PublisherUpdate):
+def publisher_update(db: Session, publisher: schemas.Publisher):
     # 根据id查询数据信息，然后修改信息
-    publisher_info = db.query(Book).filter(Book.id == publisher.id).first()
+    publisher_info = db.query(Publisher).filter(Publisher.id == publisher.id).first()
     publisher_info.id = publisher.id
-    publisher_info.title = publisher.title
-    publisher_info.price = publisher.price
-    publisher_info.writer_id = publisher.writer_id
+    publisher_info.name = publisher.name
     db.commit()
     # 先删除match的数据
     match_info = db.query(Match).filter(Match.publisher_id == publisher.id).delete()
