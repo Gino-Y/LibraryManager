@@ -63,8 +63,8 @@ function onPositiveClick(){ //弹框中单击确认调用函数
 let id = ref()
 function deleteWriter(id) {
   myMainStore.deleteWriter(id)
-  // myMainStore.getAllWriter()
-  // location.reload()
+  myMainStore.getAllWriter()
+  location.reload()
 }
 
 </script>

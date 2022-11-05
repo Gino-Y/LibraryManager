@@ -61,3 +61,19 @@ export function delete_writer(data){
     })
 }
 
+export function updata_book(data){
+    return request({
+        url: 'updata_book',
+        method: 'get',
+        params: data
+    })
+}
+
+export function updata_publisher(data){
+    return request({
+        url: 'updata_publisher',
+        method: 'get',
+        params: data
+    })
+}
+

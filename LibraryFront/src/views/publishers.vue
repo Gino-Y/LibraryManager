@@ -56,32 +56,40 @@ function deletePublisher(id) {
   myMainStore.getAllPublisher()
   location.reload()
 }
+
+function updataPublisher(id) {
+  myMainStore.updataPublisher(id)
+  myMainStore.getAllPublisher()
+  location.reload()
+}
 </script>
 
 <template>
-  <n-modal
-      v-model:show="showModal"
-      :mask-closable="false"
-      preset="dialog"
-      title="添加出版社"
-      content="你确认"
-      positive-text="确认"
-      negative-text="取消"
-      @positive-click="onPositiveClick"
-      @negative-click="onNegativeClick"
-      style="width: 80%;"
-  >
-    <n-form ref="formRef" :model="model" :rules="rules">
-      <n-form-item path="name" label="出版社">
-        <n-input v-model:value="model.name" @keydown.enter.prevent></n-input>
-      </n-form-item>
-    </n-form>
-  </n-modal>
+<!--  <n-modal-->
+<!--      v-model:show="showModal"-->
+<!--      :mask-closable="false"-->
+<!--      preset="dialog"-->
+<!--      title="添加出版社"-->
+<!--      content="你确认"-->
+<!--      positive-text="确认"-->
+<!--      negative-text="取消"-->
+<!--      @positive-click="onPositiveClick"-->
+<!--      @negative-click="onNegativeClick"-->
+<!--      style="width: 80%;"-->
+<!--  >-->
+<!--    <n-form ref="formRef" :model="model" :rules="rules">-->
+<!--      <n-form-item path="name" label="出版社">-->
+<!--        <n-input v-model:value="model.name" @keydown.enter.prevent></n-input>-->
+<!--      </n-form-item>-->
+<!--    </n-form>-->
+<!--  </n-modal>-->
 
-  <n-table :bordered="false" :single-line="false" size="small" striped>
+  <n-table
+      :bordered="false" :single-line="false" size="small" striped>
     <thead>
       <tr>
         <th>删除</th>
+        <th>确认</th>
         <th>编号</th>
         <th>出版社</th>
       </tr>
@@ -95,16 +103,56 @@ function deletePublisher(id) {
               secondary
               circle
               type="error"
-          >X</n-button>
+          >✗</n-button>
         </td>
+        <td>
+          <n-button
+              @click="updataPublisher(item.id)"
+              size="small"
+              strong
+              secondary
+              circle
+              type="success"
+          >✓</n-button>
+        </td>
+
         <td>{{item.id}}</td>
-        <td>{{item.name}}</td>
+<!--        <td>{{item.name}}</td>-->
+        <td>
+          <n-form ref="formRef" :model="model" :rules="rules">
+            <n-input v-model:value="item.name" @keydown.enter.prevent></n-input>
+          </n-form>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <n-button
+              disabled
+              size="small"
+              strong
+              secondary
+              circle
+              type="error"
+          >✗</n-button>
+        </td>
+        <td>
+          <n-button
+              @click="onPositiveClick"
+              size="small"
+              strong
+              secondary
+              circle
+              type="success"
+          >✓</n-button>
+        </td>
+        <td>--</td>
+        <td>
+          <n-form ref="formRef" :model="model" :rules="rules">
+              <n-input v-model:value="model.name" @keydown.enter.prevent></n-input>
+          </n-form>
+        </td>
       </tr>
   </n-table>
-
-  <n-button @click="showModal = true">
-    添加出版社
-  </n-button>
 </template>
 
 <style scoped>
