@@ -233,4 +233,5 @@ async def get_all_book(db: Session = Depends(get_db)):
 # 迁移文件映射到数据库
 # alembic upgrade head
 if __name__ == '__main__':
-    uvicorn.run(app=app, host='0.0.0.0', port=8030)
+    uvicorn.run(app='main:app', host='0.0.0.0', port=8030, reload=True)
+
