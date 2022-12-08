@@ -14,11 +14,7 @@ DATABASE = 'library'
 USERNAME = 'root'
 PASSWORD = 'Kadfgo53254G'
 
-DB_URI = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}?charset=utf8".format(username=USERNAME,
-                                                                                        password=PASSWORD,
-                                                                                        host=HOST,
-                                                                                        port=PORT,
-                                                                                        db=DATABASE)
+DB_URI = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}?charset=utf8"
 engine = create_engine(DB_URI, echo=True)
 # 创建DBSession类型:
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
